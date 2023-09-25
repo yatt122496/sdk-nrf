@@ -279,7 +279,7 @@ void bt_scan_cb_register(struct bt_scan_cb *cb)
 	sys_slist_append(&callback_list, &cb->node);
 }
 
-static void notify_filter_matched(struct bt_scan_device_info *device_info,
+static bool notify_filter_matched(struct bt_scan_device_info *device_info,
 				  struct bt_scan_filter_match *filter_match,
 				  bool connectable)
 {
@@ -287,10 +287,11 @@ static void notify_filter_matched(struct bt_scan_device_info *device_info,
 
 	SYS_SLIST_FOR_EACH_CONTAINER(&callback_list, cb, node) {
 		if (cb->cb_addr->filter_match) {
-			cb->cb_addr->filter_match(device_info, filter_match,
-						  connectable);
+			return cb->cb_addr->filter_match(device_info, filter_match,
+						  	connectable);
 		}
 	}
+	return false;
 }
 
 static void notify_filter_no_match(struct bt_scan_device_info *device_info,
@@ -582,7 +583,7 @@ static bool adv_name_cmp(const uint8_t *data,
 			 uint8_t data_len,
 			 const char *target_name)
 {
-	return strncmp(target_name, data, data_len) == 0;
+	return ((data_len == strlen(target_name)) && (strncmp(target_name, data, data_len) == 0));
 }
 
 static bool adv_name_compare(const struct bt_data *data,
@@ -1467,24 +1468,28 @@ static void filter_state_check(struct bt_scan_control *control,
 
 	if (control->all_mode &&
 	    (control->filter_match_cnt == control->filter_cnt)) {
-		notify_filter_matched(&control->device_info,
+		if (notify_filter_matched(&control->device_info,
 				      &control->filter_status,
-				      control->connectable);
+				      control->connectable))
+		{
 #if CONFIG_BT_CENTRAL
-		scan_connect_with_target(control, addr);
+			scan_connect_with_target(control, addr);
 #endif /* CONFIG_BT_CENTRAL */
+		}
 	}
 
 	/* In the normal filter mode, only one filter match is
 	 * needed to generate the notification to the main application.
 	 */
 	else if ((!control->all_mode) && control->filter_match) {
-		notify_filter_matched(&control->device_info,
+		if (notify_filter_matched(&control->device_info,
 				      &control->filter_status,
-				      control->connectable);
+				      control->connectable))
+		{
 #if CONFIG_BT_CENTRAL
-		scan_connect_with_target(control, addr);
+			scan_connect_with_target(control, addr);
 #endif /* CONFIG_BT_CENTRAL */
+		}
 	} else {
 		notify_filter_no_match(&control->device_info,
 				       control->connectable);

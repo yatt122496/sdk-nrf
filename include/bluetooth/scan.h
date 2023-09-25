@@ -354,7 +354,7 @@ struct cb_data {
 	 * @param[in] filter_match Filter match status.
 	 * @param[in] connectable Inform that device is connectable.
 	 */
-	void (*filter_match)(struct bt_scan_device_info *device_info,
+	bool (*filter_match)(struct bt_scan_device_info *device_info,
 			     struct bt_scan_filter_match *filter_match,
 			     bool connectable);
 

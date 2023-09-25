@@ -1,0 +1,29 @@
+#
+# Copyright (c) 2021 Nordic Semiconductor ASA
+#
+# SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+#
+
+menuconfig BT_BBQOVN_CLIENT
+	bool "BBQOVN Service client"
+	select BT_NRF_SERVICES
+	help
+	  Enable BBQOVN Service client
+
+if BT_BBQOVN_CLIENT
+
+config BT_BBQOVN_CLIENT_RR_INTERVALS_COUNT
+	int "BBQOVN RR Intervals count"
+	default 10
+	help
+	  Maximum number of intervals which can be stored during
+	  receiving BBQOVN Measurement notification or read operation.
+
+config BT_BBQOVN_DX2003_TEST_EN
+	bool "BBQOVN Test DX2003 allowed"
+
+module = BT_BBQOVN_CLIENT
+module-str = BBQOVN Client
+source "${ZEPHYR_BASE}/subsys/logging/Kconfig.template.log_config"
+
+endif # BT_BBQOVN_CLIENT
