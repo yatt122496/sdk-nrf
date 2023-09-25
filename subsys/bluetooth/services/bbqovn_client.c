@@ -36,7 +36,7 @@ static void bbqovn_reinit(struct bt_bbqovn_client *bbqovn_c)
 	bbqovn_c->cp_char.handle = 0;
 	bbqovn_c->cp_char.write_cb = NULL;
 
-	bbqovn_c->conn = NULL;
+	// bbqovn_c->conn = NULL;
 	bbqovn_c->state = ATOMIC_INIT(0);
 }
 
