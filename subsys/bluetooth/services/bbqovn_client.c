@@ -44,7 +44,7 @@ static uint8_t on_bbqovn_measurement_notify(struct bt_conn *conn,
 					 struct bt_gatt_subscribe_params *params,
 					 const void *data, uint16_t length)
 {
-	int err;
+	int err = 0;
 	struct bt_bbqovn_client *bbqovn_c;
 	struct bt_bbqovn_measurement hr_measurement;
 
