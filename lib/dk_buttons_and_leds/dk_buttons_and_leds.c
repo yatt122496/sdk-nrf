@@ -162,16 +162,16 @@ static void button_handlers_call(uint32_t button_state, uint32_t has_changed)
 KEY_REGEDIT key_info = {
 	// .get_key_state = (get_key_state_cb_t)gd_eval_key_state_get,
 	.key_status = {
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
-		{BUTTON_NONE, 0, 0, 0, 0},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
+		{BUTTON_NONE, 0, 0, {0}},
 	},
 };
 
@@ -284,7 +284,6 @@ static void buttons_scan_fn(struct k_work *work)
 {
 	int err;
 	static uint32_t last_button_scan;
-	static bool initial_run = true;
 	uint32_t button_scan;
 
 	if (irq_enabled) {
@@ -609,8 +608,6 @@ static uint8_t beep_brightness;
 int dk_pwmled_init(void)
 {
 	int err = 0;
-
-	uint8_t led;
 
 #if CONFIG_BOARD_NRF21540DK_NRF52840 == 0 && CONFIG_PWM
 	led_pwm = DEVICE_DT_GET(LED_PWM_NODE_ID);
