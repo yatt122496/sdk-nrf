@@ -625,7 +625,11 @@ int dk_pwmled_set(uint8_t brightness)
 	int err = -1;
 #if CONFIG_BOARD_NRF21540DK_NRF52840 == 0 && CONFIG_PWM
 	if (brightness == 0) {
-		err = led_on(led_pwm, 0);
+		#if defined(CONFIG_BT_BBQOVN_VERSION) && CONFIG_BT_BBQOVN_VERSION >= 1
+			err = led_off(led_pwm, 0);
+		#else
+			err = led_on(led_pwm, 0);
+		#endif
 	} else {
 		err = led_set_brightness(led_pwm, 0, brightness);
 	}
