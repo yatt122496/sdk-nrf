@@ -583,6 +583,21 @@ int dk_set_led(uint8_t led_idx, uint32_t val)
 	return err;
 }
 
+int dk_toggle_led(uint8_t led_idx)
+{
+	int err;
+
+	if (led_idx >= ARRAY_SIZE(leds)) {
+		// LOG_ERR("LED index out of the range");
+		return -EINVAL;
+	}
+	err = gpio_pin_toggle_dt(&leds[led_idx]);
+	if (err) {
+		LOG_ERR("Cannot toggle LED gpio");
+	}
+	return err;
+}
+
 int dk_set_led_on(uint8_t led_idx)
 {
 	return dk_set_led(led_idx, 1);

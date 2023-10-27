@@ -146,6 +146,8 @@ int dk_set_leds_state(uint32_t leds_on_mask, uint32_t leds_off_mask);
  */
 int dk_set_led(uint8_t led_idx, uint32_t val);
 
+int dk_toggle_led(uint8_t led_idx);
+
 /** @brief Turn a single LED on.
  *
  *  @param led_idx Index of the LED.
