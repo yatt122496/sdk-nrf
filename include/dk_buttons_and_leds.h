@@ -247,60 +247,6 @@ int dk_flash_init(void);
 
 int dk_flash_contral(uint8_t type, uint8_t *buf, uint16_t len, uint32_t addr);
 
-#if defined(CONFIG_DISPLAY) && (CONFIG_DISPLAY == 1)
-
-void OLED_Refresh(void);
-
-void OLED_Clear(void);
-
-void OLED_DrawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t mode);
-
-void OLED_DrawRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t mode);
-
-void OLED_DrawCircle(uint8_t x, uint8_t y, uint8_t r);
-
-// 在指定位置显示一个字符,包括部分字符
-// x:0~127
-// y:0~63
-// size1:选择字体 6x8/6x12/8x16/12x24
-// mode:0,反色显示;1,正常显示
-void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t size1, uint8_t mode);
-
-void OLED_ShowString(uint8_t x, uint8_t y, uint8_t *chr, uint8_t size1, uint8_t mode);
-
-void OLED_ShowNum(uint8_t x, uint8_t y, int32_t num, uint8_t len, uint8_t size1, uint8_t mode);
-
-void OLED_ShowChinese(uint8_t x, uint8_t y, uint8_t num, uint8_t size1, uint8_t mode);
-
-void OLED_ScrollDisplay(uint8_t num, uint8_t space, uint8_t mode);
-
-void OLED_ShowPicture(uint8_t x, uint8_t y, uint8_t sizex, uint8_t sizey, uint8_t BMP[], uint8_t mode);
-
-#endif
-
-enum {
-	OLED_STATUS_IDLE = 0,
-	OLED_STATUS_INIT,
-	OLED_STATUS_SHOW_NOW,
-	OLED_STATUS_SHOW_TARGET,
-	OLED_STATUS_ADJUST0,
-	OLED_STATUS_ADJUST1,
-};
-
-int dk_oled_init(void);
-
-void oled_update_temperature(uint8_t is_centigrade, int16_t temperature0, int16_t temperature1);
-
-void oled_flicker_set(void);
-
-void refresh_oled_time(void);
-
-void oled_update_charge(uint8_t charge0, uint8_t charge1);
-
-void oled_update_charge_big(uint8_t charge);
-
-extern uint8_t oled_status;
-
 typedef uint8_t (* button_active_cb_t)(KEY_INFO key);
 
 #ifdef __cplusplus
