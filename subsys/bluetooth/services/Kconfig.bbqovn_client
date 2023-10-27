@@ -19,6 +19,12 @@ config BT_BBQOVN_CLIENT_RR_INTERVALS_COUNT
 	  Maximum number of intervals which can be stored during
 	  receiving BBQOVN Measurement notification or read operation.
 
+config BT_BBQOVN_VERSION
+	int "BBQOVN VERSION"
+	default 0
+	help
+	  BBQOVN VERSION
+
 config BT_BBQOVN_DX2003_TEST_EN
 	bool "BBQOVN Test DX2003 allowed"
 
