@@ -235,7 +235,7 @@ uint32_t get_key_info_event(void);
 
 int dk_adcs_init(void);
 
-int16_t dk_get_adc(uint8_t indx);
+int dk_get_adc(int16_t *adc_value);
 
 int dk_pwmled_init(void);
 

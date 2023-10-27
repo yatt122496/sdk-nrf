@@ -671,13 +671,12 @@ int dk_adcs_init(void)
 	return err;
 }
 
-int16_t dk_get_adc(uint8_t indx)
+int dk_get_adc(int16_t *adc_value)
 {
 	int err;
 	uint16_t buf;
 
 	int32_t val_mv;
-	int16_t ret_value = 0;
 
 	struct adc_sequence sequence = {
 		.buffer = &buf,
@@ -712,13 +711,11 @@ int16_t dk_get_adc(uint8_t indx)
 			LOG_INF(" (value in mV not available)");
 		} else {
 			// LOG_INF("val_mv=%dmV", val_mv);
-			if (i == indx) {
-				ret_value = val_mv;
-			}
+			*(adc_value + i) = val_mv;
 		}
 	}
 
-	return ret_value;
+	return err;
 }
 
 int dk_flash_init(void)
