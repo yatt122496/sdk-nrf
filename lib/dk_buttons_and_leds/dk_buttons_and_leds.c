@@ -314,27 +314,6 @@ static void buttons_scan_fn(struct k_work *work)
 			if (temp_key.value.event.all) {
 				button_event |= 1 << i;
 			}
-		} else {
-#if defined(CONFIG_DISPLAY) && (CONFIG_DISPLAY == 1)
-			if (temp_key.value.event.Bit.long_press && oled_status >= OLED_STATUS_ADJUST0) {
-				uint32_t temp32 = k_uptime_get_32() - key_info.key_status[i].press_time;
-				// LOG_INF("temp32=%d, long_time=%d", temp32, temp_key.value.status.Bit.long_time);
-				if (temp_key.value.status.Bit.long_time <= 2) {
-					if (temp32 % LONG_KEY_SPEED0 < 50) {
-						// LOG_INF("LONG_KEY_SPEED0");
-						button_event |= 1 << i;
-					}
-				} else if (temp_key.value.status.Bit.long_time <= 5) {
-					if (temp32 % LONG_KEY_SPEED1 < 50) {
-						// LOG_INF("LONG_KEY_SPEED1");
-						button_event |= 1 << i;
-					}
-				} else {
-					// LOG_INF("LONG_KEY_SPEED2");
-					button_event |= 1 << i;
-				}
-			}
-#endif
 		}
 		button_stop |= temp_key.all;
 	}
