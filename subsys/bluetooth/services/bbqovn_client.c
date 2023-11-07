@@ -290,8 +290,10 @@ int bt_bbqovn_data_reset(struct bt_bbqovn_client *bbqovn_c)
 	bbqovn_c->data.bt.split1 = ':';
 	bbqovn_c->data.bt.end = '#';
 	bbqovn_c->data_bak.bt.bbqovn.power = 0xff;
-	bbqovn_c->now_temperature = 0x7fff;
-	bbqovn_c->target_temperature = 0x7fff;
+	bbqovn_c->turn = 100;
+	bbqovn_c->now_temperature = 0xffff;
+	bbqovn_c->target_temperature_bak = 0xffff;
+	bbqovn_c->target_temperature = 0xffff;
 
 	return 0;
 }

@@ -50,6 +50,7 @@ extern "C" {
 
 typedef enum {
 	BEEP_MODE_WARNING = 0,
+	BEEP_MODE_BBQ_TURN,
 	BEEP_MODE_BBQ_SUCCESS,
 	BEEP_MODE_DANGEROUS,
 	BEEP_MODE_TEST,
@@ -179,7 +180,11 @@ struct bt_bbqovn_client {
 
 	uint8_t unit;
 
+	uint8_t turn;
+
 	int16_t now_temperature;
+
+	int16_t target_temperature_bak;
 
 	int16_t target_temperature;
 
